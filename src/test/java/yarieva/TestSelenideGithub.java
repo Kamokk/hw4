@@ -1,6 +1,5 @@
 package yarieva;
 
-import org.junit.jupiter.api.Test;
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -13,7 +12,7 @@ public class TestSelenideGithub {
 
     @BeforeAll
     static void beforeAll() {
-        Configuration.startMaximized = true;
+        Configuration.browserSize = "1920x1080";
 
         Configuration.baseUrl = "https://github.com";
     }
@@ -21,38 +20,24 @@ public class TestSelenideGithub {
     // - Откройте страницу Selenide в Github
     @Test
     void searchPageWithJUnit5() {
-open("/selenide/selenide");
+        open("/selenide/selenide");
 
-// - Перейдите в раздел Wiki проекта
+        //  Перейдите в раздел Wiki проекта
         $("#wiki-tab").click();
 
         // - Убедитесь, что в списке страниц (Pages) есть страница SoftAssertions
-       $("#wiki-pages-filter").setValue("SoftAssertions");
+        $("#wiki-pages-filter").setValue("SoftAssertions");
         $("#wiki-pages-box").shouldHave(text("SoftAssertions"));
 
         //- Откройте страницу SoftAssertions,
         $("#wiki-pages-box").$(byText("SoftAssertions")).click();
 
         //проверьте что внутри есть пример кода для JUnit5
-        $("#pre div").shouldHave(text("@ExtendWith({SoftAssertsExtension.class})\n" +
-                "class Tests {\n" +
-                "  @Test\n" +
-                "  void test() {\n" +
-                "    Configuration.assertionMode = SOFT;\n" +
-                "    open(\"page.html\");\n" +
-                "\n" +
-                "    $(\"#first\").should(visible).click();\n" +
-                "    $(\"#second\").should(visible).click();\n" +
-                "  }\n" +
-                "}"));
+        $("#repo-content-pjax-container").shouldHave(text("Using JUnit5 extend test class:"));
 
-sleep(1000);
+        sleep(1000);
 
     }
 
 
-
-
-
- //- Откройте страницу SoftAssertions, проверьте что внутри есть пример кода для JUnit5
 }
