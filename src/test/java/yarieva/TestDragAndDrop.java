@@ -25,6 +25,7 @@ public class TestDragAndDrop {
 
         //  Проверить что первый элемент равен B
         $$(".column").get(0).shouldHave(text(("B")));
+        $$(".column").get(1).shouldHave(text(("A")));
         sleep(1000);
     }
 }
